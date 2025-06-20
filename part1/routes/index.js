@@ -12,28 +12,20 @@ module.exports = router;
 
 
 // index.js
-const { createApp } = Vue;
 
-createApp({
-  methods: {
-    async fetchDog() {
-      try {
-        const res  = await fetch('https://dog.ceo/api/breeds/image/random');
-        const data = await res.json();
-        // Replace the image src
-        document.getElementById('dog-img').src = data.message;
-      } catch (e) {
-        console.error('Sorry no photo available');
-      }
-    }
-  },
-  mounted() {
-    // Initial fetch
-    this.fetchDog();
-    // Wire up the tiny button
-    document
-      .getElementById('refresh-btn')
-      .addEventListener('click', () => this.fetchDog());
-  }
-}).mount('#app');
-
+ const { createApp } = Vue;
+    createApp({
+      data() { return { src: '' } },
+      methods: {
+        async fetchDog() {
+          try {
+            const res = await fetch('https://dog.ceo/api/breeds/image/random');
+            const json = await res.json();
+            this.src = json.message;
+          } catch (e) {
+            console.error('Failed to load dog');
+          }
+        }
+      },
+      mounted() { this.fetchDog() }
+    }).mount('#app');
