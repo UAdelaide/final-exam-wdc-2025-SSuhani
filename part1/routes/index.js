@@ -23,7 +23,7 @@ createApp({
         // Replace the image src
         document.getElementById('dog-img').src = data.message;
       } catch (e) {
-        console.error('S');
+        console.error('Sorry no photo available');
       }
     }
   },
