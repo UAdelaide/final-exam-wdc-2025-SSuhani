@@ -1,8 +1,10 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
-}
+        background-color: red;              /* aggressive, glaring background */
+        color: pink;                        /* barely legible text */
+        font-family: 'Comic Sans MS', cursive; /* inconsistent, playful font */
+      }
+      /* Kinematic load violation: tiny click target */
+      button {
+        font-size: 6px;                     /* tiny text */
+        padding: 2px;                       /* tiny clickable area */
+      }
