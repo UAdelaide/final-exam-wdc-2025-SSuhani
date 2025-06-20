@@ -1,6 +1,6 @@
 body {
-        background:radial-gradient(red) red;
-        color: rgb(179, 53, 74);
+        background:radial-gradient(red, pink,white)
+       
         font-family: 'Comic Sans MS';
       }
 
