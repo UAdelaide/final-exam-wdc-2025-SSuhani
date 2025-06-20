@@ -7,3 +7,31 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
+
+
+
+// index.js
+const { createApp } = Vue;
+
+createApp({
+  methods: {
+    async fetchDog() {
+      try {
+        const res = await fetch('https://dog.ceo/api/breeds/image/random');
+        const data = await res.json();
+        // Update the image src
+        document.getElementById('dog-img').src = data.message;
+      } catch (e) {
+        console.error('Failed to load dog');
+      }
+    }
+  },
+  mounted() {
+    // Initial load
+    this.fetchDog();
+    // Wire up the button
+    document.getElementById('refresh-btn')
+            .addEventListener('click', () => this.fetchDog());
+  }
+}).mount('#app');
+
