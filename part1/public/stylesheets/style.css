@@ -1,7 +1,7 @@
 body {
         background-color: red;              /* aggressive, glaring background */
-        color: pink;                        /* barely legible text */
-        font-family: 'Comic Sans MS', cursive; /* inconsistent, playful font */
+        color: pink;
+        font-family: 'Comic Sans MS', cursive;
       }
       button {
         font-size: 6px;
