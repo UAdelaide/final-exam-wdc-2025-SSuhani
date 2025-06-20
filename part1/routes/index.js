@@ -23,7 +23,7 @@ createApp({
         // Replace the image src
         document.getElementById('dog-img').src = data.message;
       } catch (e) {
-        console.error('Failed to load dog picture', e);
+        console.error('S');
       }
     }
   },
