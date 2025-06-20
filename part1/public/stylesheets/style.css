@@ -1,5 +1,5 @@
 body {
-        background-color: red;
+        background:radial-gradient(red) red;
         color: rgb(179, 53, 74);
         font-family: 'Comic Sans MS';
       }
@@ -17,7 +17,7 @@ body {
       }
 
 
-      <style>
+
     body {
       background: linear-gradient(45deg,#ff0000,#00ff00,#0000ff);
       font-family: 'Comic Sans MS', cursive, sans-serif;
