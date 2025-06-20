@@ -1,65 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dog of the Day</title>
-  <!-- Overloaded, low-contrast styles -->
-  <style>
-    body {
-      background: linear-gradient(45deg,#ff0000,#00ff00,#0000ff);
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      color: #aaa;
-    }
-    header { text-align:center; margin:20px; }
-    .dog-img { width:50px; height:50px; animation: shake 0.1s infinite; }
-    @keyframes shake {
-      0% { transform: translateX(0) }
-      50% { transform: translateX(5px) }
-      100% { transform: translateX(0) }
-    }
-    button { font-size:6px; padding:2px; } /* tiny hit target */
-    .link { font-size:8px; position:absolute; bottom:5px; right:5px; }
-  </style>
+    <title>exam</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+
+<script src="https://unpkg.com/vue@3"></script>
+
+
 </head>
+
 <body>
-  <div id="app">
+<div id="app">
     <header>
-      <h1>🐶 Dog of the Day 🐶</h1>
-      <!-- Missing alt attribute -->
-      <img :src="src" class="dog-img"/>
-    </header>
-    <!-- Hard-coded details -->
-    <section>
-      <p>Name: Rover</p>
+      <h1> Dog of the Day</h1>
+      </header>
+</div>
+
+<p>
+    research shows that looking a cute dogs pictures can inprove your health!
+</p>
+
+<ul>
+      <li>Looking at pictures of dogs for 5 minutes can improve your sense of well-being.</li>
+      <li>Looking at cute dog pictures also improves attention and focus.</li>
+    </ul>
+ <section class="dog-info">
+      <!-- Hard-coded details -->
+      <h2>Rover</h2>
       <p>Breed: Mystery Mix</p>
       <p>Age: ??</p>
+      <!-- Tiny, missing alt text -->
+      <img
+        id="dog-img"
+        src="https://images.dog.ceo/breeds/hound-walker/n02089867_2380.jpg"
+        width="50"
+        height="100"
+      />
     </section>
-    <button @click="fetchDog()">Get New Dog</button>
-    <a href="https://dog.ceo/dog-api/documentation/random" class="link">
-      API Docs
-    </a>
+
+    <!-- Tiny, hard-to-click button -->
+    <button id="refresh-btn">see a new dog!</button>
+
+    <!-- Low-contrast, tiny link -->
+    <p class="tiny-link">
+      <a href="https://dog.ceo/dog-api/documentation/random">API Docs</a>
+    </p>
   </div>
 
-  <script src="https://unpkg.com/vue@3"></script>
-  <script>
-    const { createApp } = Vue;
-    createApp({
-      data() { return { src: '' } },
-      methods: {
-        async fetchDog() {
-          try {
-            const res = await fetch('https://dog.ceo/api/breeds/image/random');
-            const json = await res.json();
-            this.src = json.message;
-          } catch (e) {
-            console.error('Failed to load dog');
-          }
-        }
-      },
-      mounted() { this.fetchDog() }
-    }).mount('#app');
-  </script>
+<script src="/routes/index.js"></script>
 </body>
 </html>
