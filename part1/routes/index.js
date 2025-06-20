@@ -10,6 +10,7 @@ module.exports = router;
 
 
 
+
 // index.js
 const { createApp } = Vue;
 
@@ -17,21 +18,22 @@ createApp({
   methods: {
     async fetchDog() {
       try {
-        const res = await fetch('https://dog.ceo/api/breeds/image/random');
+        const res  = await fetch('https://dog.ceo/api/breeds/image/random');
         const data = await res.json();
-        // Update the image src
+        // Replace the image src
         document.getElementById('dog-img').src = data.message;
       } catch (e) {
-        console.error('sorry failed to load dog picture');
+        console.error('Failed to load dog picture', e);
       }
     }
   },
   mounted() {
-    // Initial load
+    // Initial fetch
     this.fetchDog();
-    // Wire up the button
-    document.getElementById('refresh-btn')
-            .addEventListener('click', () => this.fetchDog());
+    // Wire up the tiny button
+    document
+      .getElementById('refresh-btn')
+      .addEventListener('click', () => this.fetchDog());
   }
 }).mount('#app');
 
