@@ -3,8 +3,8 @@ body {
         color: pink;                        /* barely legible text */
         font-family: 'Comic Sans MS', cursive; /* inconsistent, playful font */
       }
-      /* Kinematic load violation: tiny click target */
       button {
-        font-size: 6px;                     /* tiny text */
-        padding: 2px;                       /* tiny clickable area */
+        font-size: 6px;
+        padding: 2px;
+
       }
