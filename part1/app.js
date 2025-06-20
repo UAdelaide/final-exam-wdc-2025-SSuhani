@@ -18,3 +18,25 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 module.exports = app;
+
+app.get('/api/dogs', async (req, res) => {
+  try {
+
+    const [dogs] = await db.execute(`
+      SELECT
+        d.name          AS dog_name,
+        d.size          AS size,
+        u.username      AS owner_username
+      FROM Dogs d
+      JOIN Users u ON d.owner_id = u.user_id
+    `);
+
+
+    res.json(dogs);
+  } catch (err) {
+    console.error('Error fetching dogs:', err);
+    res
+      .status(500)
+      .json({ error: 'Failed to fetch dogs' });
+  }
+});
