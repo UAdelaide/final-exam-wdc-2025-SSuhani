@@ -1,45 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dog of the Day — Exam</title>
-  <link rel="stylesheet" href="/stylesheets/style.css" />
-  <script src="https://unpkg.com/vue@3"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dog of the Day</title>
+  <!-- Intentionally overloaded styles and fonts -->
+  <style>
+    body {
+      background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      color: #aaa; /* low contrast */
+    }
+    header { text-align: center; margin: 20px; }
+    .dog-info { font-size: 20px; margin: 20px; }
+    .dog-img { width: 50px; height: 50px; } /* too small target */
+    .shake { animation: shake 0.1s infinite; } /* constant motion */
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+      100% { transform: translateX(0); }
+    }
+    .link { position: absolute; top: 90%; left: 50%; font-size: 8px; } /* tiny link */
+  </style>
 </head>
-
 <body>
-  <!-- Vue mounting point -->
-  <div id="app">
-    <header class="blinking shake">
-      <h1>🐶 Dog of the Day 🐶</h1>
-    </header>
+  <header>
+    <h1>🐶 Dog of the Day 🐶</h1>
+    <!-- Missing alt attribute -->
+    <img id="dog" class="dog-img shake">
+  </header>
 
-    <section class="dog-info">
-      <h2>Rover</h2>
-      <p>Breed: Mystery Mix</p>
-      <p>Age: ??</p>
-      <!-- Bind src to Vue data and provide missing alt -->
-      <img
-        id="dog-img"
-        :src="src"
-        alt="Random dog of the day"
-        width="50"
-        height="100"
-      />
-    </section>
-
-    <!-- Tiny, hard-to-click button -->
-    <button id="refresh-btn">see a new dog!</button>
-
-    <!-- Low-contrast, tiny link -->
-    <p class="link">
-      <a href="https://dog.ceo/api/breeds/image/random">API Docs</a>
-    </p>
+  <div class="dog-info">
+    <!-- Hard-coded details -->
+    <p>Name: Rover</p>
+    <p>Breed: Mysterious Mixed Breed</p>
+    <p>Age: ??</p>
   </div>
 
-  <!-- client-side Vue script -->
-  <script src="/js/index.js"></script>
+  <div>
+    <button id="refresh" style="padding:2px; font-size:6px;">Get New Dog</button> <!-- tiny button -->
+  </div>
+
+  <a href="https://dog.ceo/dog-api/documentation/random" class="link">Random Dog API Docs</a> <!-- small link, poor placement -->
+
+  <script src="https://unpkg.com/vue@3"></script>
+  <script>
+    const { createApp } = Vue;
+    createApp({
+      data() {
+        return { src: '' };
+      },
+      methods: {
+        async fetchDog() {
+          try {
+            const res = await fetch('https://dog.ceo/api/breeds/image/random');
+            const json = await res.json();
+            this.src = json.message;
+            document.getElementById('dog').src = this.src;
+          } catch (e) {
+            console.error('Failed to load dog');
+          }
+        }
+      },
+      mounted() {
+        this.fetchDog();
+        document.getElementById('refresh').addEventListener('click', () => this.fetchDog());
+      }
+    }).mount('body');
+  </script>
 </body>
 </html>
