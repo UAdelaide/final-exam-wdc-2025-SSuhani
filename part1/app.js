@@ -3,6 +3,7 @@ const express = require('express');
 const path    = require('path');
 const logger  = require('morgan');
 const mysql   = require('mysql2/promise');
+const db      = require('./models/db'); 
 
 const app = express();
 
