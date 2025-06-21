@@ -72,7 +72,9 @@ async function getCurrentUser() {
           const res = await fetch('/api/users/me');
           if (!res.ok) throw new Error('Not authenticated');
           const user = await res.json();
-          
+          userId.value=user=id;
+        }
+        
 
 
         async function loadWalkRequests() {
