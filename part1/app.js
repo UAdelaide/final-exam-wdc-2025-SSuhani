@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 let db;
 (async () => {
   db = await mysql.createConnection({
-    host:'localhost',
+    host:     'localhost',
     user:'root',
     password: '',            // fill in if you have a password
     database: 'DogWalkService',
