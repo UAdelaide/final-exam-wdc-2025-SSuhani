@@ -1,23 +1,18 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-const db = require('./models/db');
+// app.js
+const express = require('express');
+const path    = require('path');
+const logger  = require('morgan');
+const db      = require('./models/db');    // your mysql2/promise pool
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const app = express();
 
-var app = express();
-
+// --- Middleware ---
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
+// --- Seed data once on startup ---
 (async () => {
   try {
     await db.execute(`
@@ -35,60 +30,56 @@ app.use('/users', usersRouter);
         ((SELECT user_id FROM Users WHERE username='felix325'),'Chris','medium'),
         ((SELECT user_id FROM Users WHERE username='bobwalker'),'Rocky','large');
     `);
-    console.log('Seed data inserted (if not already present)');
+    console.log('Seed data applied');
   } catch (err) {
     console.error('Seeding error:', err);
   }
 })();
 
-module.exports = app;
-// In app.js, after you’ve set up your Express app and MySQL connection (e.g. `const db = await mysql.createConnection(...)`):
+// --- API Endpoints ---
 
+// GET /api/dogs
 app.get('/api/dogs', async (req, res) => {
   try {
-
     const [dogs] = await db.execute(`
       SELECT
-        d.name          AS dog_name,
-        d.size          AS size,
-        u.username      AS owner_username
+        d.name       AS dog_name,
+        d.size       AS size,
+        u.username   AS owner_username
       FROM Dogs d
       JOIN Users u ON d.owner_id = u.user_id
     `);
-
-
-    res.json(dogs);
+    return res.json(dogs);
   } catch (err) {
     console.error('Error fetching dogs:', err);
-    res
-      .status(500)
-      .json({ error: 'Failed to fetch dogs' });
+    return res.status(500).json({ error: 'Failed to fetch dogs' });
   }
 });
 
+// GET /api/walkrequests/open
 app.get('/api/walkrequests/open', async (req, res) => {
   try {
     const [rows] = await db.execute(`
       SELECT
         wr.request_id,
-        d.name             AS dog_name,
+        d.name               AS dog_name,
         wr.requested_time,
         wr.duration_minutes,
         wr.location,
-        u.username         AS owner_username
+        u.username           AS owner_username
       FROM WalkRequests wr
       JOIN Dogs d  ON wr.dog_id  = d.dog_id
       JOIN Users u ON d.owner_id = u.user_id
       WHERE wr.status = 'open'
     `);
-    res.json(rows);
+    return res.json(rows);
   } catch (err) {
     console.error('Error fetching open walk requests:', err);
-    res.status(500).json({ error: 'Failed to fetch open walk requests' });
+    return res.status(500).json({ error: 'Failed to fetch open walk requests' });
   }
 });
 
-// 3) GET /api/walkers/summary
+// GET /api/walkers/summary
 app.get('/api/walkers/summary', async (req, res) => {
   try {
     const [rows] = await db.execute(`
@@ -96,7 +87,8 @@ app.get('/api/walkers/summary', async (req, res) => {
         u.username AS walker_username,
         COUNT(r.rating_id)           AS total_ratings,
         AVG(r.rating)                AS average_rating,
-        COUNT(CASE WHEN wr.status='completed' THEN 1 END) AS completed_walks
+        COUNT(CASE WHEN wr.status='completed' THEN 1 END)
+                                      AS completed_walks
       FROM Users u
       LEFT JOIN WalkRatings r
         ON u.user_id = r.walker_id
@@ -107,15 +99,13 @@ app.get('/api/walkers/summary', async (req, res) => {
       WHERE u.role = 'walker'
       GROUP BY u.username
     `);
-    res.json(rows);
+    return res.json(rows);
   } catch (err) {
     console.error('Error fetching walker summary:', err);
-    res.status(500).json({ error: 'Failed to fetch walker summary' });
+    return res.status(500).json({ error: 'Failed to fetch walker summary' });
   }
 });
 
-// --- Start server ---
+// --- Start Server ---
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`API server listening at http://localhost:${PORT}`);
-});
+app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
