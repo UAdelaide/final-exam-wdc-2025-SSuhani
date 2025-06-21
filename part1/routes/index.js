@@ -13,7 +13,7 @@ module.exports = router;
 
 // index.js
 
- const { createApp } = Vue;
+ /*const { createApp } = Vue;
     createApp({
       data() { return { src: '' } },
       methods: {
