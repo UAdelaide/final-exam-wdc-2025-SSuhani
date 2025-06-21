@@ -30,8 +30,6 @@ app.get('/api/dogs', async (req, res) => {
       FROM Dogs d
       JOIN Users u ON d.owner_id = u.user_id
     `);
-
-
     res.json(dogs);
   } catch (err) {
     console.error('Error fetching dogs:', err);
