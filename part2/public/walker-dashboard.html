@@ -64,8 +64,8 @@
         const walks   = ref([]);
         const message = ref('');
         const error   = ref('');
-        // TODO: replace this with a real session‐injected user ID
-        const userId  = 3;
+        // TODO: replace this with a real session‐injected user ID . done
+        const userId  = ref(null);
 
         async function loadWalkRequests() {
           try {
