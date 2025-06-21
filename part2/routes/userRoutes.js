@@ -13,7 +13,9 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/me',(req,res)=>{
-if (!re)
+if (!req.session.user){
+  return res.status(401).json({error})
+}
 });
 
 // POST a new user (simple signup)
