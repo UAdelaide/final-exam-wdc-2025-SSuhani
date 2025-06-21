@@ -203,31 +203,12 @@ function login(){
 
 function logout(){
 
-    // Create AJAX Request
     var xmlhttp = new XMLHttpRequest();
 
-    // Open connection to server & send the post data using a POST request
+    
     xmlhttp.open("POST", "/users/logout", true);
     xmlhttp.send();
 
 }
 
 
-document.addEventListener('DOMContentLoaded', async () => {
-  try {
-    const res = await fetch('/api/owners/me/dogs');
-    const dogs = await res.json();
-
-    const select = document.getElementById('dogId');
-    select.innerHTML = '<option value="">-- Choose a dog --</option>';
-
-    dogs.forEach(dog => {
-      const opt = document.createElement('option');
-      opt.value = dog.dog_id;
-      opt.text  = dog.name;
-      select.appendChild(opt);
-    });
-  } catch (err) {
-    console.error('Could not load your dogs:', err);
-  }
-});
