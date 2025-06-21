@@ -105,7 +105,9 @@
             });
         }
 
-        onMounted(loadWalkRequests);
+         onMounted(() => {
+          loadWalks();
+        });
 
         return {
           walks,
