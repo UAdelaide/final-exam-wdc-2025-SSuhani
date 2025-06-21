@@ -6,8 +6,12 @@
     }
 
 
-    header h1{ text-align: center; margin: 20px; }
-    .dog-info { font-size: 20px; margin: 20px; }
+    header h1{
+       text-align: center;
+       margin: 5px;
+       
+       }
+
     .dog-img { width: 50px; height: 50px; } /* too small target */
 
 
