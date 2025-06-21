@@ -20,7 +20,7 @@ app.use('/users', usersRouter);
 app.get('/api/dogs', asynv (req, res)=>{
  try{
  const[dogs]=await db.execute('
-SELECTDogs.name AS dog_name, Dogs.size, Users.username AS owner_username
+    SELECTDogs.name AS dog_name, Dogs.size, Users.username AS owner_username
 FROM Dogs
 JOIN User ON Dog.owner_id= Users.user_id
 );
