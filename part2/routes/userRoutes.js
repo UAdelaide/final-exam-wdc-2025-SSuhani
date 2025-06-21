@@ -14,7 +14,8 @@ router.get('/', async (req, res) => {
 
 router.get('/me',(req,res)=>{
 if (!req.session.user){
-  return res.status(401).json({error})
+  return res.status(401).json({error: 'your not logged in'});
+
 }
 });
 
