@@ -121,7 +121,8 @@ async function getCurrentUser() {
         }
 
          onMounted(() => {
-          loadWalks();
+          await getCurrentUser();
+        await loadWalkRequests();
         });
 
         return {
