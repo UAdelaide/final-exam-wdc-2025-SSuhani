@@ -21,14 +21,14 @@ app.get('/api/dogs', asynv (req, res)=>{
  try{
  const[dogs]=await db.execute('
     SELECT Dogs.name AS dog_name, Dogs.size, Users.username AS owner_username FROM Dogs JOIN User ON Dog.owner_id= Users.user_id
-);
+'');
 res.json(dogs);
 }catch (err){
 res.status(500).json({ error: did not fetch dog'});
 }
 });
 
-app.get('/api/walkrequests/open')
+app.get('/api/walkrequests/open', async (req, res))
 
 
 
