@@ -67,7 +67,7 @@ router.post('/logout', (req, res) => {
     // tell the client we’re done
     res.clearCookie('connect.sid',{
       path:'/',
-      httpOnly
+      httpOnly:true
     });
     res.sendStatus(204);
   });
