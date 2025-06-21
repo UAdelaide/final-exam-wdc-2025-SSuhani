@@ -64,7 +64,6 @@ router.post('/login', async (req, res) => {
 });
 
 
-// POST /api/users/logout
 router.post('/logout', (req, res) => {
   // destroy the session and its cookie
   req.session.destroy(err => {
