@@ -13,6 +13,7 @@ const walkRoutes = require('./routes/walkRoutes');
 const userRoutes = require('./routes/userRoutes');
 
 app.use('/api/walks', walkRoutes);
+mount login/logout under /api/users
 app.use('/api/users', userRoutes);
 
 // Export the app instead of listening here
