@@ -1,39 +1,46 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+// Filename: app.js
+const express = require('express');
+const path = require('path');
+const logger = 'morgan';
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// --- Database Connection ---
+const mysql = require('mysql2/promise');
 
-var app = express();
+// Create a connection pool. This is more efficient than creating a new connection for every query.
+// !!! IMPORTANT: Replace with your actual MySQL database details from your dogwalks.sql !!!
+const db = mysql.createPool({
+    host: 'localhost',
+    user: 'your_mysql_user',       // e.g., 'root'
+    password: 'your_mysql_password', // e.g., 'password'
+    database: 'DogWalkService'       // The database name from your .sql file
+});
 
-app.use(logger('dev'));
+// Make the 'db' object available to all routes
+// By attaching it to the request object, our route files can access it.
+const app = express();
+app.use((req, res, next) => {
+    req.db = db;
+    next();
+});
+
+// Import your new API router
+const apiRouter = require('./routes/api');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Use the routers
+app.use('/api', apiRouter); // All API routes will be handled by api.js
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+// Note: The original /api/dogs handler that was here has been moved to routes/api.js
+
 module.exports = app;
 
-app.get('/api/dogs', async (req, res) => {
-  try {
-    const [dogs] = await db.execute(`
-      SELECT
-        d.name       AS dog_name,
-        d.size       AS size,
-        u.username   AS owner_username
-      FROM Dogs d
-      JOIN Users u ON d.owner_id = u.user_id
-    `);
-    return res.json(dogs);
-  } catch (err) {
-    // DEBUG: log full error
-    console.error('Error fetching dogs:', err.message);
-    console.error(err.stack);
-    return res.status(500).json({ error: 'Failed to fetch dogs' });
-  }
-});
+// The server is typically started in a separate file (e.g., bin/www)
+// in an Express-generated project. If you are running this file directly with `node app.js`,
+// you would add the app.listen() call here.
