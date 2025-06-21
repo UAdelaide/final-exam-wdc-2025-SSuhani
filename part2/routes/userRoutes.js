@@ -17,6 +17,7 @@ if (!req.session.user){
   return res.status(401).json({error: 'your not logged in'});
 
 }
+res.json(req.session.user);
 });
 
 // POST a new user (simple signup)
