@@ -34,7 +34,7 @@ router.get('/api/walkrequests/open', async (req, res) => {
     try {
         const db = req.db;
 
-        // Get all the open walk requests with dog and owner info
+        
         const sql = `
             SELECT
                 wr.request_id,
