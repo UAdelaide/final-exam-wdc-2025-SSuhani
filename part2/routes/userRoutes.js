@@ -55,4 +55,24 @@ router.post('/login', async (req, res) => {
   }
 });
 
+
+// POST /api/users/logout
+router.post('/logout', (req, res) => {
+  // destroy the session and its cookie
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Logout error', err);
+      return res.status(500).json({ error: 'Logout failed' });
+    }
+    // tell the client we’re done
+    res.clearCookie('connect.sid'); // express-session default name
+    res.sendStatus(204);
+  });
+});
+
+module.exports = router;
+
+
+
+
 module.exports = router;
