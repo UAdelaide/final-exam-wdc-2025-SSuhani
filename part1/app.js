@@ -28,7 +28,7 @@ res.status(500).json({ error: did not fetch dog'});
 }
 });
 
-
+app.get('/api/walkrequests/open')
 
 
 
