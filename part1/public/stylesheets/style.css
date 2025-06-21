@@ -14,4 +14,7 @@
 
 
     .link { position: absolute;
-      top: 90%; left: 50%; font-size: 8px; } /* tiny link */
+      top: 90%;
+      left: 50%;
+       font-size: 8px;
+       }
