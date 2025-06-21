@@ -3,7 +3,7 @@ const { createApp } = Vue;
 createApp({
   data() {
     return {
-      src: '',           // holds current dog image URL
+      src: 'https://dog.ceo/api/breeds/image/random',           // holds current dog image URL
       sliderValue: 0     // binds to your range input
     };
   },
