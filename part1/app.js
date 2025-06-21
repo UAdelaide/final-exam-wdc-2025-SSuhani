@@ -30,9 +30,11 @@ res.status(500).json({ error: did not fetch dog'});
 
 
 
-app.get('/api/walkrequests/open', async (req, res) => {
+router.get('/api/walkrequests/open', async (req, res) => {
     try {
         const db = req.db;
+
+        // Get all the open walk requests with dog and owner info
         const sql = `
             SELECT
                 wr.request_id,
@@ -48,15 +50,18 @@ app.get('/api/walkrequests/open', async (req, res) => {
             JOIN
                 Users u ON d.owner_id = u.user_id
             WHERE
-                wr.status = 'open';
+                wr.status = 'open'
         `;
+
         const [results] = await db.execute(sql);
         res.json(results);
+
     } catch (error) {
-        console.error("Error fetching open walk requests:", error);
-        res.status(500).json({ error: "Failed to retrieve open walk requests." });
+        console.log("Something went wrong getting the walk requests:", error);
+        res.status(500).json({
+            error: "Could not get the walk requests"
+        });
     }
 });
-
 
 module.exports = app;
