@@ -2,7 +2,8 @@
 body {
         background:radial-gradient(red, rgb(232, 54, 84),white);
         color: rgb(205, 133, 145);
-        font-family: 'cursive', sans-serif;
+          font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+  font-weight: bold;
       }
 
 
