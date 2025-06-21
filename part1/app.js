@@ -50,7 +50,7 @@ const getDogById = (id) => sampleData.dogs.find(dog => dog.id === id);
 // Route 1: /api/dogs - Return all dogs with size and owner's username
 app.get('/api/dogs', (req, res) => {
   try {
-    const [dogs] = sampleData.dogs.map(dog => {
+    const dogsWithOwners = sampleData.dogs.map(dog => {
       const owner = getUserById(dog.owner_id);
       return {
         dog_name: dog.name,
