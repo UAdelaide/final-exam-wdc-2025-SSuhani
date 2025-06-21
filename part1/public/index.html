@@ -35,8 +35,8 @@
 
   <script src="/routes/index.js"></script>
   <script src="https://unpkg.com/vue@3"></script>
-  <script>
-    const { createApp } = Vue;
+  <script> const { createApp } = Vue;
+
     createApp({
       data() {
         return { src: '' };
@@ -47,17 +47,34 @@
             const res = await fetch('https://dog.ceo/api/breeds/image/random');
             const json = await res.json();
             this.src = json.message;
-            document.getElementById('dog').src = this.src;
           } catch (e) {
             console.error('Failed to load dog');
           }
+        },
+        moveButton() {
+          const btn = document.getElementById('refresh');
+          const maxX = window.innerWidth - btn.offsetWidth;
+          const maxY = window.innerHeight - btn.offsetHeight;
+          const randX = Math.random() * maxX;
+          const randY = Math.random() * maxY;
+          btn.style.left = randX + 'px';
+          btn.style.top = randY + 'px';
+        },
+        doNothing() {
+          alert('this does nothing');
         }
       },
       mounted() {
         this.fetchDog();
-        document.getElementById('refresh').addEventListener('click', () => this.fetchDog());
+        const refreshBtn = document.getElementById('refresh');
+        refreshBtn.addEventListener('click', () => {
+          this.fetchDog();
+          this.moveButton();
+        });
+        const bottomBtn = document.getElementById('bottom-btn');
+        bottomBtn.addEventListener('click', () => this.doNothing());
       }
-    }).mount('body');
+    }).mount('#app');
 
 
   </script>
