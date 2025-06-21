@@ -30,7 +30,7 @@ res.status(500).json({ error: did not fetch dog'});
 
 
 
-router.get('/api/walkrequests/open', async (req, res) => {
+app.get('/api/walkrequests/open', async (req, res) => {
     try {
         const db = req.db;
         const sql = `
