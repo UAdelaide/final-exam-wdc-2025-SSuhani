@@ -21,5 +21,5 @@ app.use('/users', usersRouter);
 
 
 
-app.get('api')
+app.get('/api/dogs')
 module.exports = app;
