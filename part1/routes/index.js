@@ -8,24 +8,3 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 
-
-
-
-// index.js
-
- /*const { createApp } = Vue;
-    createApp({
-      data() { return { src: '' } },
-      methods: {
-        async fetchDog() {
-          try {
-            const res = await fetch('https://dog.ceo/api/breeds/image/random');
-            const json = await res.json();
-            this.src = json.message;
-          } catch (e) {
-            console.error('Failed to load dog');
-          }
-        }
-      },
-      mounted() { this.fetchDog() }
-    }).mount('#app');
