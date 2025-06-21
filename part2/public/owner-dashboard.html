@@ -78,7 +78,7 @@
           duration_minutes: '',
           location: ''
         });
-const dogs    = ref([]); 
+const dogs    = ref([]);
         const walks = ref([]);
         const message = ref('');
         const error = ref('');
@@ -119,6 +119,7 @@ const dogs    = ref([]);
         }
         onMounted(() => {
           loadWalks();
+          loadDogs();
         });
 
               function logout() {
