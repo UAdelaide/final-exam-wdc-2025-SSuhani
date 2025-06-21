@@ -18,11 +18,10 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 module.exports = app;
-// In app.js, after you’ve set up your Express app and MySQL connection (e.g. `const db = await mysql.createConnection(...)`):
 
 app.get('/api/dogs', async (req, res) => {
   try {
-    // Join Dogs → Users to get each dog’s name, size, and owner’s username
+
     const [dogs] = await db.execute(`
       SELECT
         d.name          AS dog_name,
@@ -31,8 +30,6 @@ app.get('/api/dogs', async (req, res) => {
       FROM Dogs d
       JOIN Users u ON d.owner_id = u.user_id
     `);
-
-
     res.json(dogs);
   } catch (err) {
     console.error('Error fetching dogs:', err);
