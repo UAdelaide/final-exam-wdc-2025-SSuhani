@@ -55,7 +55,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-module.exports = router;
+
 
 
 // POST login (dummy version)
@@ -77,3 +77,5 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Login failed' });
   }
 });
+
+module.exports = router;
