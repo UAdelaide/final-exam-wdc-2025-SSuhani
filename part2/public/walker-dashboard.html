@@ -79,7 +79,7 @@
           loadWalkRequests();
         });
 
-        function logout() {
+  function logout() {
           fetch('/api/users/logout', { method: 'POST' })
             .then(() => {
               window.location.href = '/index.html';
@@ -97,7 +97,7 @@
           message,
           error,
           applyToWalk
-          logout
+          
         };
       }
     }).mount('#app');
