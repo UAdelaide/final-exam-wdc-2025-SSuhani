@@ -94,7 +94,10 @@
             message.value = '';
           }
         }
-
+ onMounted(() => {
+          loadWalks();
+        });
+        
         function logout() {
           fetch('/api/users/logout', { method: 'POST' })
             .then(() => {
@@ -105,7 +108,7 @@
             });
         }
 
-        onMounted(loadWalkRequests);
+
 
         return {
           walks,
