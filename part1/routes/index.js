@@ -8,25 +8,3 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 
-    const { createApp } = Vue;
-    createApp({
-      data() {
-        return { src: '' };
-      },
-      methods: {
-        async fetchDog() {
-          try {
-            const res = await fetch('https://dog.ceo/api/breeds/image/random');
-            const json = await res.json();
-            this.src = json.message;
-            document.getElementById('dog').src = this.src;
-          } catch (e) {
-            console.error('Failed to load dog');
-          }
-        }
-      },
-      mounted() {
-        this.fetchDog();
-        document.getElementById('refresh').addEventListener('click', () => this.fetchDog());
-      }
-    }).mount('body');
