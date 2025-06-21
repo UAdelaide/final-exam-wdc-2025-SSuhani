@@ -74,7 +74,9 @@ async function getCurrentUser() {
           const user = await res.json();
           userId.value=user=id;
         }
-        
+        catch(err){
+          console.error()
+        }
 
 
         async function loadWalkRequests() {
