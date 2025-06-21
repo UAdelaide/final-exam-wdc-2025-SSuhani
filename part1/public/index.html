@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>exam</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
-
-
-<script src="https://unpkg.com/vue@3"></script>
-
-
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dog of the Day — Exam</title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <script src="https://unpkg.com/vue@3"></script>
 </head>
 
 <body>
-<div id="app">
-    <header>
-      <h1> Dog of the Day</h1>
-      </header>
+  <!-- Vue mounting point -->
+  <div id="app">
+    <header class="blinking shake">
+      <h1>🐶 Dog of the Day 🐶</h1>
+    </header>
 
+    <section class="dog-info">
+      <h2>Rover</h2>
+      <p>Breed: Mystery Mix</p>
+      <p>Age: ??</p>
+      <!-- Bind src to Vue data and provide missing alt -->
+      <img
+        id="dog-img"
+        :src="src"
+        alt="Random dog of the day"
+        width="50"
+        height="100"
+      />
+    </section>
 
-<p>
-    research shows that looking a cute dogs pictures can inprove your health!
-</p>
-
-<ul>
-      <li>Looking at pictures of dogs for 5 minutes can improve your sense of well-being.</li>
-      <li>Looking at cute dog pictures also improves attention and focus.</li>
-    </ul>
-    <p>Studies show that just a few minutes of looking at pictures of dogs online can significantly improve your sense of well-being and improve your focus and attention. You're basically leveling up for the work ahead.</p>
-
-
-      <img id="dog-img"  src="https://images.dog.ceo/breeds/hound-walker/n02089867_2380.jpg"width="50" height="100" />
-
-
-
+    <!-- Tiny, hard-to-click button -->
     <button id="refresh-btn">see a new dog!</button>
 
-
+    <!-- Low-contrast, tiny link -->
+    <p class="link">
+      <a href="https://dog.ceo/api/breeds/image/random">API Docs</a>
+    </p>
   </div>
-</div>
-<script src="/routes/index.js"></script>
+
+  <!-- client-side Vue script -->
+  <script src="/js/index.js"></script>
 </body>
 </html>
