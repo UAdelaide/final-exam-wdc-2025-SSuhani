@@ -21,20 +21,19 @@ module.exports = app;
 
 app.get('/api/dogs', async (req, res) => {
   try {
-
     const [dogs] = await db.execute(`
       SELECT
-        d.name          AS dog_name,
-        d.size          AS size,
-        u.username      AS owner_username
+        d.name       AS dog_name,
+        d.size       AS size,
+        u.username   AS owner_username
       FROM Dogs d
       JOIN Users u ON d.owner_id = u.user_id
     `);
-    res.json(dogs);
+    return res.json(dogs);
   } catch (err) {
-    console.error('Error fetching dogs:', err);
-    res
-      .status(500)
-      .json({ error: 'Failed to fetch dogs' });
+    // DEBUG: log full error
+    console.error('Error fetching dogs:', err.message);
+    console.error(err.stack);
+    return res.status(500).json({ error: 'Failed to fetch dogs' });
   }
 });
